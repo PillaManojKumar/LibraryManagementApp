@@ -189,6 +189,8 @@ namespace LibraryManagementSystem
             AnsiConsole.MarkupLine("[bold yellow3]Enter student details:[/]");
             AnsiConsole.MarkupLine("[bold yellow3]Name:[/]");
             string name = Console.ReadLine();
+            AnsiConsole.MarkupLine("[bold yellow3]Email:[/]");
+            string email = Console.ReadLine();
             AnsiConsole.MarkupLine("[bold yellow3]Phone number:[/]");
             long phnum = Convert.ToInt64(Console.ReadLine());
 
@@ -197,11 +199,13 @@ namespace LibraryManagementSystem
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "INSERT Into Students (Name, Phonenumber) VALUES (@Name, @phnum)";
+                    string query = "INSERT Into Students (Name, Email, Phonenumber) VALUES (@Name, @Email, @phnum)";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Name", name);
+                        command.Parameters.AddWithValue("@Email", email);
                         command.Parameters.AddWithValue("@phnum", phnum);
+                       
 
                         int rowsAffected = command.ExecuteNonQuery();
 
@@ -233,6 +237,8 @@ namespace LibraryManagementSystem
             AnsiConsole.MarkupLine("[bold mediumpurple1]Enter new student details:[/]");
             AnsiConsole.MarkupLine("[bold mediumpurple1]Name:[/]");
             string name = Console.ReadLine();
+            AnsiConsole.MarkupLine("[bold mediumpurple1]Email:[/]");
+            string email = Console.ReadLine();
             AnsiConsole.MarkupLine("[bold mediumpurple1]Phone number:[/]");
             long phnum = Convert.ToInt64(Console.ReadLine());
 
@@ -241,11 +247,12 @@ namespace LibraryManagementSystem
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "UPDATE Students SET Name = @Name, Phonenumber = @phnum WHERE StudentId = @StudentId";
+                    string query = "UPDATE Students SET Name = @Name, Email = @email, Phonenumber = @phnum WHERE StudentId = @StudentId";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Name", name);
-                        command.Parameters.AddWithValue("@phnum", phnum);
+                        command.Parameters.AddWithValue("@email", email);
+                        command.Parameters.AddWithValue("@phnum", phnum);                        
                         command.Parameters.AddWithValue("@StudentId", studentId);
 
                         int rowsAffected = command.ExecuteNonQuery();
@@ -501,7 +508,7 @@ namespace LibraryManagementSystem
                         if (reader.HasRows)
                         {
                             AnsiConsole.MarkupLine("[bold lightpink1]Search results:[/]");
-                            Console.WriteLine("BookId\tTitle\t\tAuthor\t\tPublication\t\tIsAvailable");
+                            Console.WriteLine("BookId\tTitle\tAuthor\t\tPublication\tIsAvailable");
                             while (reader.Read())
                             {
                                 Console.WriteLine("{0}\t{1}\t{2}\t\t{3}\t\t{4}",
@@ -541,11 +548,11 @@ namespace LibraryManagementSystem
                         if (reader.HasRows)
                         {
                             AnsiConsole.MarkupLine("[bold hotpink3_1]Search results:[/] ");
-                            Console.WriteLine("StudentId\tName\t\tPhonenumber");
+                            Console.WriteLine("StudentId\tName\tEmail\t\tPhonenumber");
                             while (reader.Read())
                             {
-                                Console.WriteLine("{0}\t\t{1}\t\t{2}",
-                                    reader["StudentId"], reader["Name"], reader["Phonenumber"]);
+                                Console.WriteLine("{0}\t\t{1}\t{2}\t{3}",
+                                    reader["StudentId"], reader["Name"], reader["Email"], reader["Phonenumber"]);
                             }
                         }
                         else
