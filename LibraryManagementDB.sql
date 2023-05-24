@@ -27,6 +27,7 @@ Create Table Students
 (
 StudentId Int Identity(1,1) Primary Key,
 Name Varchar(100),
+Email varchar(100),
 Phonenumber bigint
 )
 drop table Students
