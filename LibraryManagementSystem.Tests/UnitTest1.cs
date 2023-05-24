@@ -121,7 +121,8 @@ namespace LibraryManagementSystem.Tests
         public void AddStudent_WhenCalled_ReturnsTrue()
         {
             // Arrange
-            string name = "John Doe";
+            string name = "John";
+            string email = "john@123";
             long phoneNumber = 1234567890;
 
             libraryMock.Setup(x => x.AddStudent()).Returns(true);
@@ -139,6 +140,7 @@ namespace LibraryManagementSystem.Tests
             // Arrange
             int studentId = 1;
             string name = "John";
+            string email = "john@123";
             long phoneNumber = 1234567890;
 
             libraryMock.Setup(mock => mock.EditStudent()).Returns(true);
@@ -157,6 +159,7 @@ namespace LibraryManagementSystem.Tests
             // Arrange
             int studentId = 1;
             string name = "John";
+            string email = "john@123";
             long phoneNumber = 1234567890;
 
             libraryMock.Setup(mock => mock.EditStudent()).Returns(false);
